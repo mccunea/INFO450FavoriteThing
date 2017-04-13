@@ -142,8 +142,8 @@ void BeerList::GetUserInput()
 	{
 		list[numrecords] = new Beer();
 		list[numrecords]->CaptureBeerItem();
-		if (numrecords >= 1)
-		{
+		
+		
 			for (int i = 0; i < numrecords; i++)
 			{
 				if (*list[numrecords] == *list[i])
@@ -160,13 +160,14 @@ void BeerList::GetUserInput()
 				cout << "enter another beer Y/N?" << endl;
 				getline(cin, answer);
 				duplicate = false;
+				continue;
 			}
-			else {
+			
 				numrecords++;
 				cout << "enter another beer Y/N?" << endl;
 				getline(cin, answer);
-			}
-		}
+			
+		
 		
 
 	}
