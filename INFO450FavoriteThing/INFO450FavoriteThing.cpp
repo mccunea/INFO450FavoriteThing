@@ -20,6 +20,10 @@ public:
 	void CaptureBeerItem();
 	void ShowBeerItem();
 	int SaveBeerItem(ofstream &outfile);
+
+	friend bool operator== (const Beer& b, const Beer& ba);
+
+	
 };
 
 class BeerList
@@ -35,7 +39,19 @@ public:
 	void ShowBeerList();
 	int SaveBeerList(string filename);
 	int ReadBeerList(string filename);
+
+	
 };
+
+bool operator== (const Beer& b, const Beer& ba) 
+{
+	if (b.beerCompany == ba.beerCompany && b.beerName == ba.beerName && b.abv == ba.abv && b.calories == ba.calories)
+	{
+		return 1;
+	}
+	else 
+		return 0;
+}
 
 // default constructor - initialize empty
 Beer::Beer()
@@ -63,6 +79,7 @@ void Beer::CaptureBeerItem()
 	cin >> calories;
 	cin.ignore();
 	cin.clear();
+	
 }
 // Display item to console
 void Beer::ShowBeerItem()
@@ -80,6 +97,8 @@ int Beer::SaveBeerItem(ofstream& outfile)
 	else
 		return WRITEERROR;
 }
+
+
 
 // Beer LIst constructor -allocate default space for array
 BeerList::BeerList()
@@ -115,17 +134,41 @@ int BeerList::ReallocateArray()
 // get user input for the list
 void BeerList::GetUserInput()
 {
+	bool duplicate = false;
 	string answer = "Y";
-	// tbd check to see if i have enought space
 	cout << "enter beer Y/N?" << endl;
 	getline(cin, answer);
 	while (answer == "Y" || answer == "y")
 	{
 		list[numrecords] = new Beer();
 		list[numrecords]->CaptureBeerItem();
-		numrecords++;
-		cout << "enter another beer Y/N?" << endl;
-		getline(cin, answer);
+		if (numrecords >= 1)
+		{
+			for (int i = 0; i < numrecords; i++)
+			{
+				if (*list[numrecords] == *list[i])
+				{
+					duplicate = true;
+				}
+				i++;
+			}
+
+			if (duplicate == true)
+			{
+				cout << "Duplicate value will not be entered!";
+				delete list[numrecords];
+				//cout << "enter another beer Y/N?" << endl;
+				//getline(cin, answer);
+				duplicate = false;
+			}
+			else { numrecords++; }
+		}
+		
+		
+			cout << "enter another beer Y/N?" << endl;
+			getline(cin, answer);
+		
+
 	}
 }
 
@@ -193,7 +236,7 @@ int BeerList::ReadBeerList(string filename)
 
 int main()
 {
-	string filename = "c:\\users\\lob8463\\documents\\Beer3.txt";
+	string filename = "c:\\users\\lob8463\\documents\\Beer4.txt";
 	BeerList myBeer;
 	string answer;
 	int error;
