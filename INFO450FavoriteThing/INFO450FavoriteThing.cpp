@@ -162,11 +162,10 @@ void BeerList::GetUserInput()
 				duplicate = false;
 				continue;
 			}
-			
-				numrecords++;
-				cout << "enter another beer Y/N?" << endl;
-				getline(cin, answer);
-			
+			numrecords++;
+			cout << "enter another beer Y/N?" << endl;
+			getline(cin, answer);
+
 		
 		
 
@@ -237,9 +236,11 @@ int BeerList::ReadBeerList(string filename)
 
 int main()
 {
-	string filename = "c:\\users\\lob8463\\documents\\Beer4.txt";
+	string filename;
 	BeerList myBeer;
 	string answer;
+	cout << "File Path?" << endl;
+	getline(cin, filename);
 	int error;
 	error = myBeer.ReadBeerList(filename);
 	if (error)
