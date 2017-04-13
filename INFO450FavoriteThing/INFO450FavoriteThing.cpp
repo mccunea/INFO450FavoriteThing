@@ -157,16 +157,16 @@ void BeerList::GetUserInput()
 			{
 				cout << "Duplicate value will not be entered!";
 				delete list[numrecords];
-				//cout << "enter another beer Y/N?" << endl;
-				//getline(cin, answer);
+				cout << "enter another beer Y/N?" << endl;
+				getline(cin, answer);
 				duplicate = false;
 			}
-			else { numrecords++; }
+			else {
+				numrecords++;
+				cout << "enter another beer Y/N?" << endl;
+				getline(cin, answer);
+			}
 		}
-		
-		
-			cout << "enter another beer Y/N?" << endl;
-			getline(cin, answer);
 		
 
 	}
